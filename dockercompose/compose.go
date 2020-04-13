@@ -9,7 +9,7 @@ import (
 )
 
 var workdir = envconf.Env{Name: "WORKDIR", DefaultValue: ""}.Get()
-var defaultArgs = []string{"up", "-d"}
+var defaultArgs = []string{"-d"}
 var log = logging.MustGetLogger("gitops")
 
 func Run(path string, customArgs []string, pull bool) error {

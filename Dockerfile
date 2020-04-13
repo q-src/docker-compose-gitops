@@ -5,7 +5,7 @@ ENV CGO_ENABLED=0
 RUN go get -d -v . && \
     go build -o /gitops
 
-FROM docker/compose:1.25.5
+FROM ixdotai/docker-compose:1.25.5
 COPY --from=builder gitops /bin
 VOLUME /git
 VOLUME /ssh

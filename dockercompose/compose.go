@@ -12,17 +12,19 @@ var workdir = envconf.Env{Name: "WORKDIR", DefaultValue: ""}.Get()
 var defaultArgs = []string{"up", "-d"}
 var log = logging.MustGetLogger("gitops")
 
-func Run(path string, customArgs []string) error {
+func Run(path string, customArgs []string, pull bool) error {
 	args := append(defaultArgs, customArgs...)
 
-	cmd := createCommand(path, "pull")
-	err := cmd.Run()
-	if nil != err {
-		log.Warningf("docker-compose pull failed: '%s'", err)
+	if pull {
+		cmd := createCommand(path, "pull")
+		err := cmd.Run()
+		if nil != err {
+			log.Warningf("docker-compose pull failed: '%s'", err)
+		}
 	}
 
-	cmd = createCommand(path, "up", args...)
-	err = cmd.Run()
+	cmd := createCommand(path, "up", args...)
+	err := cmd.Run()
 	if nil != err {
 		log.Errorf("docker-compose failed: '%s'", err)
 	}

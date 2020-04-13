@@ -38,7 +38,7 @@ func update() {
 	if nil != err {
 		return
 	}
-	err = dockercompose.Run(path, os.Args[1:])
+	err = dockercompose.Run(path, os.Args[1:], true)
 	if nil == err {
 		return
 	}
@@ -48,7 +48,7 @@ func update() {
 		log.Errorf("Unable to recover old commit.")
 		return
 	}
-	err = dockercompose.Run(path, os.Args[1:])
+	err = dockercompose.Run(path, os.Args[1:], false)
 	if nil != err {
 		log.Errorf("Recovering of old commit was successful. However, bringing services up failed.")
 		return
